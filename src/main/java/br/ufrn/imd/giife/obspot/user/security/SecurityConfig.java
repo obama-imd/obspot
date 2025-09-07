@@ -15,6 +15,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
+    private static final String[] PUBLIC_ENDPOINTS = {
+            "/auth/**",
+            "/v3/**",
+            "/swagger-ui/**",
+            "/actuator/**"
+    };
+
     private final JwtAuthFilter jwtAuthFilter;
 
     SecurityConfig(
@@ -29,7 +36,7 @@ public class SecurityConfig {
                 .authenticationManager(authManager)
                 .authorizeHttpRequests(
                         authRegistry -> authRegistry
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
