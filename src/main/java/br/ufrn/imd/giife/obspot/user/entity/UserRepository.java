@@ -1,4 +1,4 @@
-package br.ufrn.imd.giife.obspot.user;
+package br.ufrn.imd.giife.obspot.user.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
