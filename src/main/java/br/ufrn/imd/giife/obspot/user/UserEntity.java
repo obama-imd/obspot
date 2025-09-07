@@ -1,4 +1,4 @@
-package br.ufrn.imd.giife.obspot.user.entity;
+package br.ufrn.imd.giife.obspot.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

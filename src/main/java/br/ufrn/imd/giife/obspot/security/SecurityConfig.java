@@ -1,6 +1,6 @@
-package br.ufrn.imd.giife.obspot.user.security;
+package br.ufrn.imd.giife.obspot.security;
 
-import br.ufrn.imd.giife.obspot.user.security.jwt.JwtAuthFilter;
+import br.ufrn.imd.giife.obspot.security.jwt.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

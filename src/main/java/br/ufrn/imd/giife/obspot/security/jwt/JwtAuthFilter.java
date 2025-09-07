@@ -1,6 +1,6 @@
-package br.ufrn.imd.giife.obspot.user.security.jwt;
+package br.ufrn.imd.giife.obspot.security.jwt;
 
-import br.ufrn.imd.giife.obspot.user.entity.UserService;
+import br.ufrn.imd.giife.obspot.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package br.ufrn.imd.giife.obspot.user.security.jwt;
+package br.ufrn.imd.giife.obspot.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
