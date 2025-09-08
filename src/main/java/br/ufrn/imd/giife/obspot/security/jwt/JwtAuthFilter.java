@@ -1,6 +1,6 @@
 package br.ufrn.imd.giife.obspot.security.jwt;
 
-import br.ufrn.imd.giife.obspot.user.service.UserService;
+import br.ufrn.imd.giife.obspot.security.userdetails.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,14 +19,14 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserService userService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     public JwtAuthFilter(
             JwtService jwtService,
-            UserService userService
+            UserDetailsServiceImpl userDetailsService
     ) {
         this.jwtService = jwtService;
-        this.userService = userService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String userEmail = jwtService.getUsernameFromToken(jwt);
 
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userService.loadUserByUsername(userEmail);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
 
                 if (jwtService.validateToken(jwt)) {
                     UsernamePasswordAuthenticationToken authToken =

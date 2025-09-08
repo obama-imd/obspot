@@ -6,9 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -48,3 +50,4 @@ public class UserEntity {
         this.password = password;
     }
 }
+
