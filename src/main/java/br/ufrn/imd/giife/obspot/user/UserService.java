@@ -1,8 +1,6 @@
-package br.ufrn.imd.giife.obspot.user.service;
+package br.ufrn.imd.giife.obspot.user;
 
 import br.ufrn.imd.giife.obspot.common.service.exception.EntityAlreadyExistsException;
-import br.ufrn.imd.giife.obspot.user.UserEntity;
-import br.ufrn.imd.giife.obspot.user.UserRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

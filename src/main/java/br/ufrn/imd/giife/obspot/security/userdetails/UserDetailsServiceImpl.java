@@ -1,6 +1,6 @@
 package br.ufrn.imd.giife.obspot.security.userdetails;
 
-import br.ufrn.imd.giife.obspot.user.service.UserService;
+import br.ufrn.imd.giife.obspot.user.UserService;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -6,8 +6,8 @@ import br.ufrn.imd.giife.obspot.security.auth.controller.dto.RegistrationRequest
 import br.ufrn.imd.giife.obspot.security.jwt.JwtService;
 import br.ufrn.imd.giife.obspot.security.userdetails.UserDetailsImpl;
 import br.ufrn.imd.giife.obspot.user.UserEntity;
+import br.ufrn.imd.giife.obspot.user.UserService;
 import br.ufrn.imd.giife.obspot.user.controller.UserMapper;
-import br.ufrn.imd.giife.obspot.user.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
