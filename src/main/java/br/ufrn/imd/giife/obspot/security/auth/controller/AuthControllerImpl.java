@@ -2,6 +2,8 @@ package br.ufrn.imd.giife.obspot.security.auth.controller;
 
 import br.ufrn.imd.giife.obspot.common.controller.dto.ResponseDTO;
 import br.ufrn.imd.giife.obspot.security.auth.AuthService;
+import br.ufrn.imd.giife.obspot.security.auth.controller.dto.LoginRequestDTO;
+import br.ufrn.imd.giife.obspot.security.auth.controller.dto.LoginResponseDTO;
 import br.ufrn.imd.giife.obspot.security.auth.controller.dto.RegistrationRequestDTO;
 import br.ufrn.imd.giife.obspot.user.UserEntity;
 import jakarta.validation.Valid;
@@ -38,10 +40,18 @@ public class AuthControllerImpl implements AuthController {
                 .status(HttpStatus.CREATED)
                 .body(
                         new ResponseDTO(
-                                HttpStatus.CREATED,
+                                HttpStatus.CREATED.value(),
                                 USER_REGISTER_SUCCEEDED
                         )
                 );
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginDTO) {
+        LoginResponseDTO response = authService.login(loginDTO);
+        log.debug("Token gerado com sucesso para o usuário {}", loginDTO.email());
+
+        return ResponseEntity.ok(response);
     }
 
 }
