@@ -2,6 +2,7 @@ package br.ufrn.imd.giife.obspot.common.controller;
 
 import br.ufrn.imd.giife.obspot.common.controller.dto.ResponseDTO;
 import br.ufrn.imd.giife.obspot.common.service.exception.EntityAlreadyExistsException;
+import br.ufrn.imd.giife.obspot.common.service.exception.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,13 +16,29 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ResponseDTO> handleEntityNotFoundException(EntityNotFoundException ex) {
+        log.warn(ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        new ResponseDTO(
+                                HttpStatus.BAD_REQUEST.value(),
+                                "Entidade não encontrada!"
+                        )
+                );
+    }
+
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public ResponseEntity<ResponseDTO> handleEntityAlreadyExistsException(EntityAlreadyExistsException ex) {
         log.warn(ex.getMessage());
 
         return  ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
-                    new ResponseDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+                    new ResponseDTO(
+                            HttpStatus.BAD_REQUEST.value(),
+                            "Entidade já existe!"
+                    )
                 );
     }
 
