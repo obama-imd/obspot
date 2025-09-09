@@ -4,6 +4,7 @@ import br.ufrn.imd.giife.obspot.recursoeducacional.model.TipoRecursoEducacional;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
+import java.util.UUID;
 
 public record RecursoEducacionalRequestDTO(
         @Schema(
@@ -28,19 +29,19 @@ public record RecursoEducacionalRequestDTO(
                 description = "Lista de IDs dos autores principais do recurso.",
                 example = "[1, 2]"
         )
-        List<Long> authorsIds,
+        List<UUID> authorsIds,
 
         @Schema(
                 description = "Lista de IDs dos co-autores que contribuíram com o recurso.",
                 example = "[3]"
         )
-        List<Long> coAuthorsIds,
+        List<UUID> coAuthorsIds,
 
         @Schema(
                 description = "Lista de IDs dos orientadores do desenvolvimento do recurso.",
                 example = "[4, 5]"
         )
-        List<Long> teachersIds,
+        List<UUID> teachersIds,
 
         @Schema(
                 description = "Tipo do recurso educacional.",
