@@ -3,6 +3,7 @@ package br.ufrn.imd.giife.obspot.recursoeducacional;
 import br.ufrn.imd.giife.obspot.common.service.exception.EntityNotFoundException;
 import br.ufrn.imd.giife.obspot.recursoeducacional.controller.RecursoEducacionalMapper;
 import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.RecursoEducacionalRequestDTO;
+import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.RecursoEducacionalUpdateRequestDTO;
 import br.ufrn.imd.giife.obspot.recursoeducacional.model.RecursoEducacionalEntity;
 import br.ufrn.imd.giife.obspot.user.UserService;
 import org.springframework.lang.NonNull;
@@ -51,6 +52,11 @@ public class RecursoEducacionalService {
     public RecursoEducacionalEntity findById(@NonNull Long id) {
         return recursoEducacionalRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(RECURSO_NOT_FOUND_MESSAGE.formatted(id)));
+    }
+
+    public RecursoEducacionalEntity update(Long id, RecursoEducacionalUpdateRequestDTO updateDTO) {
+        RecursoEducacionalEntity recurso = findById(id);
+        return recursoEducacionalMapper.update(updateDTO, recurso);
     }
 
     public void delete(@NonNull Long id) {
