@@ -5,9 +5,12 @@ import br.ufrn.imd.giife.obspot.recursoeducacional.controller.RecursoEducacional
 import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.RecursoEducacionalRequestDTO;
 import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.RecursoEducacionalUpdateRequestDTO;
 import br.ufrn.imd.giife.obspot.recursoeducacional.model.RecursoEducacionalEntity;
+import br.ufrn.imd.giife.obspot.user.UserEntity;
 import br.ufrn.imd.giife.obspot.user.UserService;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class RecursoEducacionalService {
@@ -57,6 +60,57 @@ public class RecursoEducacionalService {
     public RecursoEducacionalEntity update(Long id, RecursoEducacionalUpdateRequestDTO updateDTO) {
         RecursoEducacionalEntity recurso = findById(id);
         return recursoEducacionalMapper.update(updateDTO, recurso);
+    }
+    
+    public RecursoEducacionalEntity addAuthor(Long recursoId, UUID authorId) {
+        RecursoEducacionalEntity recurso = findById(recursoId);
+        UserEntity author = userService.findById(authorId);
+
+        if (!recurso.getAuthors().contains(author)) {
+            recurso.getAuthors().add(author);
+        }
+
+        return recursoEducacionalRepository.save(recurso);
+    }
+    
+    public RecursoEducacionalEntity removeAuthor(Long recursoId, UUID authorId) {
+        RecursoEducacionalEntity recurso = findById(recursoId);
+        recurso.getAuthors().remove(userService.findById(authorId));
+        return recursoEducacionalRepository.save(recurso);
+    }
+    
+    public RecursoEducacionalEntity addCoAuthor(Long recursoId, UUID coAuthorId) {
+        RecursoEducacionalEntity recurso = findById(recursoId);
+        UserEntity coAuthor = userService.findById(coAuthorId);
+
+        if (!recurso.getCoAuthors().contains(coAuthor)) {
+            recurso.getAuthors().add(coAuthor);
+        }
+
+        return recursoEducacionalRepository.save(recurso);
+    }
+
+    public RecursoEducacionalEntity removeCoAuthor(Long recursoId, UUID coAuthorId) {
+        RecursoEducacionalEntity recurso = findById(recursoId);
+        recurso.getCoAuthors().remove(userService.findById(coAuthorId));
+        return recursoEducacionalRepository.save(recurso);
+    }
+
+    public RecursoEducacionalEntity addTeacher(Long recursoId, UUID teacherId) {
+        RecursoEducacionalEntity recurso = findById(recursoId);
+        UserEntity teacher = userService.findById(teacherId);
+
+        if (!recurso.getTeachers().contains(teacher)) {
+            recurso.getTeachers().add(teacher);
+        }
+
+        return recursoEducacionalRepository.save(recurso);
+    }
+
+    public RecursoEducacionalEntity removeTeacher(Long recursoId, UUID teacherId) {
+        RecursoEducacionalEntity recurso = findById(recursoId);
+        recurso.getTeachers().remove(userService.findById(teacherId));
+        return recursoEducacionalRepository.save(recurso);
     }
 
     public void delete(@NonNull Long id) {
