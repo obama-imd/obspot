@@ -22,4 +22,8 @@ public class RecursoEducacionalService {
         return recursoEducacionalRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(RECURSO_NOT_FOUND_MESSAGE.formatted(id)));
     }
+
+    public void delete(@NonNull Long id) {
+        recursoEducacionalRepository.delete(findById(id));
+    }
  }
