@@ -1,7 +1,7 @@
 package br.ufrn.imd.giife.obspot.recursoeducacional.controller;
 
-import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.RecursoEducacionalRequestDTO;
-import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.RecursoEducacionalUpdateRequestDTO;
+import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.request.RecursoEducacionalRequestDTO;
+import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.request.RecursoEducacionalUpdateRequestDTO;
 import br.ufrn.imd.giife.obspot.recursoeducacional.model.RecursoEducacionalEntity;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

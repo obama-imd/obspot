@@ -2,8 +2,8 @@ package br.ufrn.imd.giife.obspot.recursoeducacional;
 
 import br.ufrn.imd.giife.obspot.common.service.exception.EntityNotFoundException;
 import br.ufrn.imd.giife.obspot.recursoeducacional.controller.RecursoEducacionalMapper;
-import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.RecursoEducacionalRequestDTO;
-import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.RecursoEducacionalUpdateRequestDTO;
+import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.request.RecursoEducacionalRequestDTO;
+import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.request.RecursoEducacionalUpdateRequestDTO;
 import br.ufrn.imd.giife.obspot.recursoeducacional.model.RecursoEducacionalEntity;
 import br.ufrn.imd.giife.obspot.user.UserEntity;
 import br.ufrn.imd.giife.obspot.user.UserService;

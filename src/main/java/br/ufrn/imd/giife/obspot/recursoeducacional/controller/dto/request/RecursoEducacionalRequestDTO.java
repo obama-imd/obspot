@@ -1,4 +1,4 @@
-package br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto;
+package br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.request;
 
 import br.ufrn.imd.giife.obspot.recursoeducacional.model.TipoRecursoEducacional;
 import io.swagger.v3.oas.annotations.media.Schema;
