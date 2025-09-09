@@ -30,7 +30,7 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<ResponseDTO> register(@Valid @RequestBody RegistrationRequestDTO registrationDTO) {
         log.debug("Registrando usuário com os dados: {}", registrationDTO);
         UserEntity user = authService.register(registrationDTO);
