@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,15 +17,14 @@ import org.springframework.context.annotation.Configuration;
                 description = "Obspot API",
                 contact = @Contact(name = "Emanuel Kywal", email = "emanuelkywal@outlook.com"),
                 license = @License(name = "Apache 2.0", url = "https://www.apache.org/licenses/LICENSE-2.0")
-        )
+        ),
+        security = {@SecurityRequirement(name = "bearerAuth")}
 )
 @SecurityScheme(
         name = "bearerAuth",
         type = SecuritySchemeType.HTTP,
         bearerFormat = "JWT",
-        scheme = "bearer",
-        description = "Insira o token JWT (sem o prefixo 'Bearer ')"
+        scheme = "Bearer {token}",
+        description = "Insert JWT token (without the 'Bearer ' prefix)"
 )
-public class SwaggerConfig {
-
-}
+public class SwaggerConfig { }
