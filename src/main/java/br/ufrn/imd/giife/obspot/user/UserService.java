@@ -6,7 +6,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -31,6 +34,10 @@ public class UserService {
     public UserEntity findById(@NonNull UUID id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(USER_ID_NOT_FOUND_MESSAGE.formatted(id)));
+    }
+
+    public Set<UserEntity> findAllById(@NonNull Collection<UUID> ids){
+        return ids.stream().map(this::findById).collect(Collectors.toSet());
     }
 
     public UserEntity findByEmail(@NonNull String email) {

@@ -5,12 +5,9 @@ import br.ufrn.imd.giife.obspot.recursoeducacional.controller.RecursoEducacional
 import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.request.RecursoEducacionalRequestDTO;
 import br.ufrn.imd.giife.obspot.recursoeducacional.controller.dto.request.RecursoEducacionalUpdateRequestDTO;
 import br.ufrn.imd.giife.obspot.recursoeducacional.model.RecursoEducacionalEntity;
-import br.ufrn.imd.giife.obspot.user.UserEntity;
 import br.ufrn.imd.giife.obspot.user.UserService;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class RecursoEducacionalService {
@@ -31,86 +28,23 @@ public class RecursoEducacionalService {
         this.userService = userService;
     }
 
-    public RecursoEducacionalEntity create(RecursoEducacionalRequestDTO requestDTO) {
+    public @NonNull RecursoEducacionalEntity create(@NonNull RecursoEducacionalRequestDTO requestDTO) {
         RecursoEducacionalEntity recurso = recursoEducacionalMapper.toEntity(requestDTO);
-        findAndSetEntities(requestDTO, recurso);
+        recurso.setAuthors(userService.findAllById(requestDTO.authorsIds()));
+        recurso.setCoAuthors(userService.findAllById(requestDTO.coAuthorsIds()));
+        recurso.setTeachers(userService.findAllById(requestDTO.teachersIds()));
 
         return recursoEducacionalRepository.save(recurso);
     }
 
-    private void findAndSetEntities(RecursoEducacionalRequestDTO requestDTO, RecursoEducacionalEntity recurso) {
-        recurso.setAuthors(
-                requestDTO.authorsIds().stream().map(userService::findById).toList()
-        );
-
-         recurso.setCoAuthors(
-                 requestDTO.coAuthorsIds().stream().map(userService::findById).toList()
-         );
-
-         recurso.setTeachers(
-                 requestDTO.teachersIds().stream().map(userService::findById).toList()
-         );
-    }
-
-    public RecursoEducacionalEntity findById(@NonNull Long id) {
+    public @NonNull RecursoEducacionalEntity findById(@NonNull Long id) {
         return recursoEducacionalRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(RECURSO_NOT_FOUND_MESSAGE.formatted(id)));
     }
 
-    public RecursoEducacionalEntity update(Long id, RecursoEducacionalUpdateRequestDTO updateDTO) {
+    public @NonNull RecursoEducacionalEntity partialUpdate(@NonNull Long id, @NonNull RecursoEducacionalUpdateRequestDTO updateDTO) {
         RecursoEducacionalEntity recurso = findById(id);
-        return recursoEducacionalMapper.update(updateDTO, recurso);
-    }
-    
-    public RecursoEducacionalEntity addAuthor(Long recursoId, UUID authorId) {
-        RecursoEducacionalEntity recurso = findById(recursoId);
-        UserEntity author = userService.findById(authorId);
-
-        if (!recurso.getAuthors().contains(author)) {
-            recurso.getAuthors().add(author);
-        }
-
-        return recursoEducacionalRepository.save(recurso);
-    }
-    
-    public RecursoEducacionalEntity removeAuthor(Long recursoId, UUID authorId) {
-        RecursoEducacionalEntity recurso = findById(recursoId);
-        recurso.getAuthors().remove(userService.findById(authorId));
-        return recursoEducacionalRepository.save(recurso);
-    }
-    
-    public RecursoEducacionalEntity addCoAuthor(Long recursoId, UUID coAuthorId) {
-        RecursoEducacionalEntity recurso = findById(recursoId);
-        UserEntity coAuthor = userService.findById(coAuthorId);
-
-        if (!recurso.getCoAuthors().contains(coAuthor)) {
-            recurso.getAuthors().add(coAuthor);
-        }
-
-        return recursoEducacionalRepository.save(recurso);
-    }
-
-    public RecursoEducacionalEntity removeCoAuthor(Long recursoId, UUID coAuthorId) {
-        RecursoEducacionalEntity recurso = findById(recursoId);
-        recurso.getCoAuthors().remove(userService.findById(coAuthorId));
-        return recursoEducacionalRepository.save(recurso);
-    }
-
-    public RecursoEducacionalEntity addTeacher(Long recursoId, UUID teacherId) {
-        RecursoEducacionalEntity recurso = findById(recursoId);
-        UserEntity teacher = userService.findById(teacherId);
-
-        if (!recurso.getTeachers().contains(teacher)) {
-            recurso.getTeachers().add(teacher);
-        }
-
-        return recursoEducacionalRepository.save(recurso);
-    }
-
-    public RecursoEducacionalEntity removeTeacher(Long recursoId, UUID teacherId) {
-        RecursoEducacionalEntity recurso = findById(recursoId);
-        recurso.getTeachers().remove(userService.findById(teacherId));
-        return recursoEducacionalRepository.save(recurso);
+        return recursoEducacionalMapper.partialUpdate(updateDTO, recurso);
     }
 
     public void delete(@NonNull Long id) {

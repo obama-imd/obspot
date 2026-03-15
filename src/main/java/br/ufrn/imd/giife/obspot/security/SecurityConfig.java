@@ -24,9 +24,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
 
-    SecurityConfig(
-            JwtAuthFilter jwtAuthFilter
-    ) {
+    SecurityConfig(JwtAuthFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
     }
 

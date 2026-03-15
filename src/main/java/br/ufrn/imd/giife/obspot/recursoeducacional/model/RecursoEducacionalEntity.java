@@ -8,39 +8,58 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "recursos_educacionais")
 public class RecursoEducacionalEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String title;
 
     @Column
+    @Lob
     private String description;
 
-    @Column
+    @Column()
     private String pathFile;
 
     @ManyToMany
-    private List<UserEntity> authors;
+    private Set<UserEntity> authors;
 
     @ManyToMany
-    private List<UserEntity> coAuthors;
+    private Set<UserEntity> coAuthors;
 
     @ManyToMany
-    private List<UserEntity> teachers;
+    private Set<UserEntity> teachers;
 
     @Enumerated(EnumType.STRING)
     private TipoRecursoEducacional tipoRecursoEducacional;
+
+    // Utils
+
+    @Override
+    public boolean equals(Object object) {
+        return object instanceof RecursoEducacionalEntity recurso
+                && recurso.getTitle() != null
+                && recurso.getTitle().equals(this.getTitle());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
+
+    // Getters e setters
 
     public Long getId() {
         return id;
@@ -74,28 +93,76 @@ public class RecursoEducacionalEntity {
         this.pathFile = pathFile;
     }
 
-    public List<UserEntity> getAuthors() {
+    public Set<UserEntity> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<UserEntity> authors) {
+    public void setAuthors(Set<UserEntity> authors) {
         this.authors = authors;
     }
 
-    public List<UserEntity> getCoAuthors() {
+    public boolean addAuthor(UserEntity author) {
+        return this.authors.add(author);
+    }
+
+    public boolean addAuthors(Collection<UserEntity> authors) {
+        return this.authors.addAll(authors);
+    }
+
+    public boolean removeAuthor(UserEntity author) {
+        return this.authors.remove(author);
+    }
+
+    public  boolean removeAuthors(Collection<UserEntity> authors) {
+        return this.authors.removeAll(authors);
+    }
+
+    public Set<UserEntity> getCoAuthors() {
         return coAuthors;
     }
 
-    public void setCoAuthors(List<UserEntity> coAuthors) {
+    public void setCoAuthors(Set<UserEntity> coAuthors) {
         this.coAuthors = coAuthors;
     }
 
-    public List<UserEntity> getTeachers() {
+    public boolean addCoAuthor(UserEntity coAuthor) {
+        return this.coAuthors.add(coAuthor);
+    }
+
+    public boolean addCoAuthors(Collection<UserEntity> coAuthors) {
+        return this.coAuthors.addAll(coAuthors);
+    }
+
+    public boolean removeCoAuthor(UserEntity coAuthor) {
+        return this.coAuthors.remove(coAuthor);
+    }
+
+    public boolean removeCoAuthors(Collection<UserEntity> coAuthors) {
+        return this.coAuthors.removeAll(coAuthors);
+    }
+
+    public Set<UserEntity> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(List<UserEntity> teachers) {
+    public void setTeachers(Set<UserEntity> teachers) {
         this.teachers = teachers;
+    }
+
+    public boolean addTeacher(UserEntity teacher) {
+        return this.teachers.add(teacher);
+    }
+
+    public boolean addTeachers(Collection<UserEntity> teachers) {
+        return this.teachers.addAll(teachers);
+    }
+
+    public boolean removeTeacher(UserEntity teacher) {
+        return this.teachers.remove(teacher);
+    }
+
+    public boolean removeTeachers(Collection<UserEntity> teachers) {
+        return this.teachers.removeAll(teachers);
     }
 
     public TipoRecursoEducacional getTipoRecursoEducacional() {
